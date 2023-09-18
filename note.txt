@@ -1,0 +1,6 @@
+Contracts -> Dao -> Auth -> AuthDaoInterface, Services -> Auth -> AuthServiceInterface
+Dao -> Auth -> AuthDao
+Services -> Auth -> AuthService
+
+Mail
+php artisan make:mail MyEmail
