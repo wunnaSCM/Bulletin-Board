@@ -10,6 +10,7 @@ export default {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
+        "./node_modules/flowbite/**/*.js"
     ],
 
     theme: {
@@ -74,10 +75,14 @@ export default {
                     800: '#1e293b',
                     900: '#0f172a',
                     950: '#020617',
-                }
+                },
+                black: '#000000',
             },
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        require('flowbite/plugin')
+    ],
 };
