@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
             'phone' => ['required', 'max:20'],
             'dob' => ['required'],
             'address' => ['required', 'string', 'max:255'],
-            'profile' => ['required', 'string', 'max:255']
+            // 'profile' => ['required', 'string', 'max:255']
         ];
     }
 }

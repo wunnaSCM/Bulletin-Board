@@ -5,3 +5,7 @@
 input#file-upload-button{
   background-color: red;
 }
+
+[type=file] {
+  background: #ffffff;
+}

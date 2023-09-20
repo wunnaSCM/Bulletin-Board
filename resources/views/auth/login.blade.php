@@ -69,7 +69,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-start">
                     <div class="flex items-center h-5">
-                        <input id="remember_me" aria-describedby="remember" type="checkbox"
+                        <input id="remember_me" name="remember" aria-describedby="remember" type="checkbox"
                             class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300">
                     </div>
                     <div class="ml-3 text-sm">

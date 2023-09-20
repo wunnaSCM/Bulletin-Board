@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('user.index');
     Route::get('/user', [UserController::class, 'create'])->name('user.create');
     Route::post('/user', [UserController::class, 'store'])->name('user.store');
+    Route::get('/user/{id}', [UserController:: class, 'edit'])->name('user.edit');
+
+    Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+    Route::get('/post', [PostController::class, 'create'])->name('post.create');
 });
 
 Route::middleware('guest')->group(function () {
