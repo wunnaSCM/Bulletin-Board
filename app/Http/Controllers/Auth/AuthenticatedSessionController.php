@@ -25,6 +25,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        if (isset($request->remember) && !empty($request->remember)) {
+            setcookie('email', $request->email, time() + 3600);
+            setcookie('password', $request->password, time() + 3600);
+        } else {
+            setcookie('email', '');
+            setcookie('password', '');
+        }
         $request->authenticate();
 
         $request->session()->regenerate();
