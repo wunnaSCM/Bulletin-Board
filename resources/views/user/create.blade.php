@@ -102,9 +102,8 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="Profile" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
-                        {{-- <input type="file" name="profile" id="profile"
-                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"> --}}
-                            <input class="block w-full text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none" aria-describedby="user_avatar_help" id="profile" name="profiel" type="file">
+                            <input  type="file" name="profile" id="profile"
+                            class="block w-full text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none" aria-describedby="user_avatar_help">
                             @error('profile')
                             <div class="text-red-600 mt-2 text-sm">
                                 {{ $message }}

@@ -35,6 +35,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/posts', [PostController::class, 'index'])->name('post.index');
     Route::get('/post', [PostController::class, 'create'])->name('post.create');
+    Route::post('/post/confirm', [PostController::class, 'createConfirm'])->name('post.create.confirm');
+    Route::post('/post', [PostController::class, 'store'])->name('post.store');
+    Route::get('/post/{id}/', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('/post/{id}/confirm', [PostController::class, 'editConfirm'])->name('post.edit.confirm');
+    Route::put('/post/{id}', [PostController::class, 'update'])->name('post.update');
+    Route::delete('/post/{id}', [PostController::class, 'delete'])->name('post.delete');
 });
 
 Route::middleware('guest')->group(function () {

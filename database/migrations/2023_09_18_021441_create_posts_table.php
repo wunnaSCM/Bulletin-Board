@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('status')->default(1);
             $table->foreignId('created_user_id')->references('id')->on('users');
             $table->foreignId('updated_user_id')->references('id')->on('users');
-            $table->foreignId('deleted_user_id')->nullable()->references('id')->on('users');
+            $table->foreignId('deleted_user_id')->nullable()->references('id')->on('users')->nullable();
             $table->timestamps(0);
             $table->softDeletes('deleted_at', 0);
         });
