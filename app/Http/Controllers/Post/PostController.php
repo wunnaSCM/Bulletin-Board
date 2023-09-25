@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Post;
 
 use App\Contracts\Services\Post\PostServiceInterface;
+use App\Exports\PostsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\EditRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Imports\PostsImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class PostController extends Controller
 {
@@ -34,7 +38,6 @@ class PostController extends Controller
     }
     public function store(Request $request)
     {
-        // dd('req', $request->title);
         $this->postInterface->savePost($request);
         return redirect()->route('post.index');
     }
@@ -60,5 +63,21 @@ class PostController extends Controller
     {
         $this->postInterface->deletePost($id);
         return redirect()->route('post.index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new PostsExport, 'posts.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new PostsImport, $request->file);
+        return back()->withStatus('Import in queue, we will send notification after import finished.');
+    }
+
+    public function importView()
+    {
+        return view('post.import');
     }
 }

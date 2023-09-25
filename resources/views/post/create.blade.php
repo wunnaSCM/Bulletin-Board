@@ -4,6 +4,8 @@
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 py-12">
         <form action="{{ route('post.create.confirm') }}" method="POST" id="create">
             @csrf
+            <input type="hidden" id="hidden-user_id" name="created_user_id" value="{{ Auth::user()->id }}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
             <div class="bg-white-100 overflow-hidden shadow-lg sm:rounded-lg">
                 <div class="px-6 pt-6">
                     <h1 class="text-2xl font-semibold">Create Post</h1>

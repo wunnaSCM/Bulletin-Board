@@ -11,13 +11,6 @@ class PostDao implements PostDaoInterface
 {
   public function getAllPost(Request $request)
   {
-    // if ($request->search) {
-    //   $posts = Post::where('title', 'like', '%' . $request->search . '%')->paginate(6);
-    // } else {
-    //   $posts = Post::latest()->paginate(6);
-    // }
-    // return $posts;
-
     $posts = Post::query()
       ->when($request->search, function (Builder $builder) use ($request) {
         $builder->where('title', 'like', "%{$request->search}%");
@@ -61,5 +54,11 @@ class PostDao implements PostDaoInterface
   {
     $post = Post::find($id);
     return $post->delete();
+  }
+
+  public function getAllPostExport()
+  {
+    $posts = Post::all();
+    return $posts;
   }
 }

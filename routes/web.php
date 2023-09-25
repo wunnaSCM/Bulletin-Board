@@ -41,6 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/post/{id}/confirm', [PostController::class, 'editConfirm'])->name('post.edit.confirm');
     Route::put('/post/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/post/{id}', [PostController::class, 'delete'])->name('post.delete');
+
+    Route::get('/posts/export/', [PostController::class, 'export'])->name('post.export');
+    Route::get('/posts/import', [PostController::class, 'importView'])->name('post.import.view');
+    Route::post('/posts/import', [PostController::class, 'import'])->name('post.import');
 });
 
 Route::middleware('guest')->group(function () {

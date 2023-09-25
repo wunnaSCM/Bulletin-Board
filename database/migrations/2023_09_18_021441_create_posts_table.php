@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->char('title', 255)->unique();
+            $table->char('title', 255);
             $table->text('description');
             $table->integer('status')->default(1);
             $table->foreignId('created_user_id')->references('id')->on('users');
             $table->foreignId('updated_user_id')->references('id')->on('users');
             $table->foreignId('deleted_user_id')->nullable()->references('id')->on('users')->nullable();
             $table->timestamps(0);
+            $table->unique(['title', 'created_user_id']);
             $table->softDeletes('deleted_at', 0);
         });
     }

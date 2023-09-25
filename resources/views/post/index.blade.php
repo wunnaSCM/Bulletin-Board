@@ -5,21 +5,34 @@
         <div class="flex justify-end mb-3">
             {{-- Search Input --}}
             <form>
-                <input type="search" class="form-control" placeholder="Find user here" name="search" value="{{ request('search') }}">
+                <input type="search" class="form-control" placeholder="Find user here" name="search"
+                    value="{{ request('search') }}">
             </form>
 
             <a href="{{ route('post.create') }}"
                 class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
                 Create
             </a>
-            <button type="button"
+            {{-- <form action="{{ route('post.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-3">
+                    <input type="file" class="pointer" name="file" accept=".xlsx" id="file"
+                        style="display: none">
+                    <button type="button" onclick="triggerFileInput()">Choose File</button>
+                    <button type="submit" id="submit-btn"
+                        class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                        Upload
+                    </button>
+                </div>
+            </form> --}}
+            <a href="{{ route('post.import.view') }}"
                 class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
-                Upload
-            </button>
-            <button type="button"
+                Import
+            </a>
+            <a href="{{ route('post.export') }}"
                 class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
                 Download
-            </button>
+            </a>
         </div>
         <div class="grid grid-cols-3 gap-8">
             @if ($posts->count())
@@ -76,10 +89,16 @@
                                 <p class="text-gray-600">{{ $post->created_at->diffForHumans() }}</p>
                             </div>
 
-                            <div>
-                                <a href="{{ route('post.edit', $post->id) }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary hover:text-white-200">Edit</a>
-                            </div>
+                        </div>
+                        <div class="flex items-center mt-5">
+                            <a href="{{ route('post.edit', $post->id) }}"
+                                class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                                Edit
+                            </a>
+                            <a href="{{ route('post.delete', $post->id) }}"
+                                class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                                Delete
+                            </a>
                         </div>
                     </div>
                 @endforeach
@@ -92,4 +111,12 @@
             {{ $posts->links() }}
         @endif
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        function triggerFileInput() {
+            document.getElementById('file').click();
+        }
+    </script>
 @endsection
