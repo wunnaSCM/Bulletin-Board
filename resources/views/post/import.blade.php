@@ -11,9 +11,9 @@
                 <div class="px-6 pt-6">
                     <input type="file" class="pointer" name="file" accept=".xlsx" id="file">
                     <div class="text-red-600 mt-2 text-sm">
-                        @foreach ($errors->all() as $error)
+                        {{-- @foreach ($errors->all() as $error)
                             {{ $error }} <br>
-                        @endforeach
+                        @endforeach --}}
                     </div>
                 </div>
                 <div class="flex justify-start px-6 pb-6">

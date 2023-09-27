@@ -86,8 +86,8 @@
                                 </svg>
                             </div>
                             <input datepicker datepicker-format="dd/mm/yyyy" datepicker-autohide type="text"
-                                name="dob" id="dob" data-date="{{ $user->dob }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                                name="dob" id="dob"  data-date="02/25/2022"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5"
                                 placeholder="Select date">
                         </div>
                     </div>
@@ -120,7 +120,7 @@
 
                     <button type="submit"
                         class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200">
-                        Add product
+                        Add
                     </button>
                 </div>
             </form>
