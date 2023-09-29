@@ -7,7 +7,7 @@
     <section class="bg-background">
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
             <h2 class="mb-4 text-2xl font-bold text-gray-900">Edit User</h2>
-            <form action="" method="" enctype="multipart/form-data">
+            <form action="{{ route('user.edit.confirm', $user->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-4 sm:gap-6">
                     <div class="sm:col-span-2">
@@ -78,17 +78,19 @@
                     <div class="sm:col-span-2">
                         <label for="dob" class="block mb-2 text-sm font-medium text-gray-900">Date of Birth</label>
                         <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            {{-- <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="currentColor" viewBox="0 0 20 20">
                                     <path
                                         d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                 </svg>
-                            </div>
-                            <input datepicker datepicker-format="dd/mm/yyyy" datepicker-autohide type="text"
-                                name="dob" id="dob"  data-date="02/25/2022"
+                            </div> --}}
+                            {{-- <input datepicker datepicker-format="dd/mm/yyyy" datepicker-autohide type="date"
+                                name="dob" id="dob" data-date={{ $user->dob }} value={{ $user->dob }}
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5"
-                                placeholder="Select date">
+                                placeholder="Select date"> --}}
+                            <input type="date" name="dob" id="dob" value="{{ $user->dob }}"
+                                class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
                     </div>
                     <div class="sm:col-span-2">
@@ -103,8 +105,11 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="Profile" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
-                        <input type="file" name="profile" id="profile"
-                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input type="file" name="profile" id="profile" value="{{ $user->profile }}"
+                            class="block w-full text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
+                            aria-describedby="user_avatar_help">
+                        <img id="selectedImage" src="{{ asset('images/user_image/' . $user->profile) }}" alt="Selected Image"
+                            width="300px" height="200px">
                         @error('profile')
                             <div class="text-red-600 mt-2 text-sm">
                                 {{ $message }}
@@ -113,14 +118,14 @@
                     </div>
                 </div>
                 <div class="flex justify-start py-4">
-                    <button
+                    <a href="javascript:history.back()"
                         class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 mr-4">
-                        Cancel
-                    </button>
+                        Clear
+                    </a>
 
                     <button type="submit"
                         class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200">
-                        Add
+                        Confirm
                     </button>
                 </div>
             </form>
@@ -132,7 +137,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const datepicker = new Datepicker(document.getElementById('dob'));
-            datepicker.getDate($user->dob);
+            datepicker.getDate($user - > dob);
 
             datepicker.on('change', function() {
                 const selectedDate = datepicker.getDate();
@@ -152,5 +157,15 @@
                 });
             });
         });
+    </script>
+
+    <script>
+        conso
+        profile.onchange = evt => {
+            const [file] = profile.files
+            if (file) {
+                selectedImage.src = URL.createObjectURL(file)
+            }
+        }
     </script>
 @endsection

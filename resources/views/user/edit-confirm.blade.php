@@ -6,31 +6,24 @@
 @section('content')
     <section class="bg-background">
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
-            <h2 class="mb-4 text-2xl font-bold text-gray-900">Add User</h2>
-            <form action="{{ route('user.create.confirm') }}" method="POST" enctype="multipart/form-data" id="create">
+            <h2 class="mb-4 text-2xl font-bold text-gray-900">Edit Confirm User</h2>
+            <form action="{{ route('user.update', $id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="grid gap-4 sm:grid-cols-4 sm:gap-6">
                     <div class="sm:col-span-2">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
-                        <input type="text" name="name" id="name" value="{{ old('name') }}"
+                        <p id="name">{{ $request->name }}</p>
+                        <input type="hidden" name="name" id="name" value="{{ $request->name }}"
                             class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        @error('name')
-                            <div class="text-red-600 mt-2 text-sm">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
                     <div class="sm:col-span-2">
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                        <input type="text" name="email" id="email" value="{{ old('email') }}"
+                        <p id="email">{{ $request->name }}</p>
+                        <input type="hidden" name="email" id="email" value="{{ $request->email }}"
                             class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        @error('email')
-                            <div class="text-red-600 mt-2 text-sm">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
-                    <div class="sm:col-span-2">
+                    {{-- <div class="sm:col-span-2">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Pssword</label>
                         <input type="password" name="password" id="password" value="{{ old('password') }}"
                             class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
@@ -51,69 +44,41 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="sm:col-span-2">
                         <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Type</label>
-                        <select id="type" name="type"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                            <option value="0">Admin</option>
-                            <option value="1">User</option>
-                        </select>
-                        @error('type')
-                            <div class="text-red-600 mt-2 text-sm">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <p id="type">{{ $request->type }}</p>
                     </div>
                     <div class="sm:col-span-2">
                         <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone</label>
-                        <input type="number" name="phone" id="phone" value="{{ old('phone') }}"
+                        <p id="phone">{{ $request->phone }}</p>
+                        <input type="hidden" name="phone" id="phone" value="{{ $request->phone }}"
                             class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        @error('phone')
-                            <div class="text-red-600 mt-2 text-sm">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
                     <div class="sm:col-span-2">
                         <label for="dob" class="block mb-2 text-sm font-medium text-gray-900">Date of Birth</label>
-                        <div class="relative max-w-sm">
-                            <input type="date" name="dob" id="dob" value="{{ old('dob') }}"
-                                class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        </div>
+                        <p id="dob">{{ $request->dob }}</p>
                     </div>
                     <div class="sm:col-span-2">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <input type="text" name="address" id="address" value="{{ old('address') }}"
+                        <p id="name">{{ $request->address }}</p>
+                        <input type="hidden" name="address" id="address" value="{{ $request->address }}"
                             class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        @error('address')
-                            <div class="text-red-600 mt-2 text-sm">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
                     <div class="sm:col-span-2">
                         <label for="Profile" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
-                        <input type="file" name="profile" id="profile"
-                            class="block w-full text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
-                            aria-describedby="user_avatar_help">
-                        <img id="selectedImage" src="" alt="Selected Image">
-                        @error('profile')
-                            <div class="text-red-600 mt-2 text-sm">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <img id="selectedImage" src="#" alt="Selected Image" width="300px" height="200px">
                     </div>
                 </div>
                 <div class="flex justify-start py-4">
-                    <button onclick="clearField();" type="button"
+                    <button
                         class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 mr-4">
-                        Clear
+                        Cancel
                     </button>
 
                     <button type="submit"
                         class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200">
-                        Add
+                        Update
                     </button>
                 </div>
             </form>
@@ -125,6 +90,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const datepicker = new Datepicker(document.getElementById('dob'));
+            datepicker.getDate($user - > dob);
 
             datepicker.on('change', function() {
                 const selectedDate = datepicker.getDate();
@@ -147,19 +113,11 @@
     </script>
 
     <script>
-        document.getElementById('selectedImage').style.visibility = 'hidden';
         profile.onchange = evt => {
             const [file] = profile.files
             if (file) {
                 selectedImage.src = URL.createObjectURL(file)
-                document.getElementById('selectedImage').style.visibility = 'visible';
             }
-        }
-
-        function clearField() {
-            document.getElementById("create").reset();
-            var image_x = document.getElementById('selectedImage');
-            image_x.parentNode.removeChild(image_x);
         }
     </script>
 @endsection

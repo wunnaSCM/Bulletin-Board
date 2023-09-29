@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\Contracts\Dao\User\UserDaoInterface;
 use App\Contracts\Services\User\UserServiceInterface;
+use Illuminate\Http\Request;
 
 class UserService implements UserServiceInterface
 {
@@ -23,6 +24,12 @@ class UserService implements UserServiceInterface
   public function getUserById($id)
   {
     $user = $this->userDao->getUserById($id);
+    return $user;
+  }
+
+  public function updateUser(Request $request, $id)
+  {
+    $user = $this->userDao->updateUser($request, $id);
     return $user;
   }
 }

@@ -13,6 +13,7 @@ class AuthDao implements AuthDaoInterface
 {
   public function saveUser(Request $request)
   {
+    // dd('res', $request);
     $user = new User();
     $user->name = $request->name;
     $user->email  = $request->email;
@@ -23,7 +24,7 @@ class AuthDao implements AuthDaoInterface
     $user->type  = $request->type ? $request->type : 1;
     $user->phone  = $request->phone;
     $user->address  = $request->address;
-    $user->dob = $request->dob ? Carbon::createFromFormat('m/d/Y', $request->dob)->format('Y-m-d') : null;
+    $user->dob = $request->dob ? $request->dob : null;
     $user->created_user_id  = Auth::user()->id ?? 1;
     $user->updated_user_id = Auth::user()->id ?? 1;
     $user->save();

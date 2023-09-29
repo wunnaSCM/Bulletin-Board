@@ -30,8 +30,11 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('user.index');
     Route::get('/user', [UserController::class, 'create'])->name('user.create');
+    Route::post('/user/confirm', [UserController::class, 'createConfirm'])->name('user.create.confirm');
     Route::post('/user', [UserController::class, 'store'])->name('user.store');
-    Route::get('/user/{id}', [UserController:: class, 'edit'])->name('user.edit');
+    Route::get('/user/{id}/', [UserController:: class, 'edit'])->name('user.edit');
+    Route::post('/user/{id}/confirm', [UserController:: class, 'editConfirm'])->name('user.edit.confirm');
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
 
     Route::get('/posts', [PostController::class, 'index'])->name('post.index');
     Route::get('/post', [PostController::class, 'create'])->name('post.create');
