@@ -123,30 +123,6 @@
 
 @section('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const datepicker = new Datepicker(document.getElementById('dob'));
-
-            datepicker.on('change', function() {
-                const selectedDate = datepicker.getDate();
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('user.store') }}',
-                    data: {
-                        selectedDate: selectedDate
-                    },
-                    success: function(response) {
-                        console.log('Date selected: ', selectedDate);
-                        console.log('Server response: ', response);
-                    },
-                    error: function(error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
         document.getElementById('selectedImage').style.visibility = 'hidden';
         profile.onchange = evt => {
             const [file] = profile.files

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
  */
 interface UserServiceInterface
 {
-  public function getAllUser();
+  public function getAllUser(Request $request);
 
   public function getUserById($id);
   public function updateUser(Request $request, $id);

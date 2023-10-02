@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
  */
 interface UserDaoInterface
 {
-  public function getAllUser();
+  public function getAllUser(Request $request);
 
   public function getUserById($id);
 

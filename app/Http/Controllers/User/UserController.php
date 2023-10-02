@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Contracts\Services\Auth\AuthServiceInterface;
 use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\EditRequest;
 use App\Http\Requests\User\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -20,10 +21,17 @@ class UserController extends Controller
         $this->userInterface = $userServiceInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->userInterface->getAllUser();
+        $users = $this->userInterface->getAllUser($request);
         return view('user.index')->with(compact('users'));
+    }
+
+    public function show($id)
+    {
+        $user = $this->userInterface->getUserById($id);
+            // dd('user', $user->profile);
+        return view('user.detail')->with(compact('user'));
     }
     public function create()
     {
@@ -33,15 +41,15 @@ class UserController extends Controller
     public function createConfirm(StoreRequest $request)
     {
         $imageName = $request->profile ? uniqid() . "_" . $request->profile->getClientOriginalName() : null;
-        $imageSource = $request->profile->move(public_path("images/tmp/"), $imageName);
-        $removeString = '/Users/wunna/Documents/Laravel/bulletin-board/public/images/tmp/';
+        $imageSource = $request->profile->move(public_path("images/user_image/"), $imageName);
+        $removeString = '/Users/wunna/Documents/Laravel/bulletin-board/public/images/user_image/';
         $imagePath = Str::replace($removeString,'',$imageSource);
+        session(['image' => $imagePath]);
         return view('user.create-confirm')->with(compact(['request', 'imagePath']));
     }
 
     public function store(Request $request)
     {
-        dd('data', $request);
         $this->authInterface->saveUser($request);
         return redirect()->route('dashboard')->withInput();;
     }
@@ -52,15 +60,23 @@ class UserController extends Controller
         return view('user.edit')->with(compact('user'));
     }
 
-    public function editConfirm(Request $request, $id)
+    public function editConfirm(EditRequest $request, $id)
     {
-        // dd($request->profile);
-        return view('user.edit-confirm')->with(compact(['request','id']));
+        // dd($request);
+        if ($request->profile) {
+            $imageName = $request->profile ? uniqid() . "_" . $request->profile->getClientOriginalName() : null;
+            $imageSource = $request->profile->move(public_path("images/user_image/"), $imageName);
+            $removeString = '/Users/wunna/Documents/Laravel/bulletin-board/public/images/user_image/';
+            $imagePath = Str::replace($removeString,'',$imageSource);
+            session(['image1' => $imagePath]);
+            return view('user.edit-confirm')->with(compact(['request', 'id', 'imagePath']));
+        } else {
+            return view('user.edit-confirm')->with(compact(['request', 'id']));
+        }
     }
 
     public function update(Request $request, $id)
     {
-        // dd('updated', $request);
         $this->userInterface->updateUser($request, $id);
         return redirect()->route('user.index')->withInput();
     }

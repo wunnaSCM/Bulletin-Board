@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/{id}/', [UserController:: class, 'edit'])->name('user.edit');
     Route::post('/user/{id}/confirm', [UserController:: class, 'editConfirm'])->name('user.edit.confirm');
     Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::get('/user/detail/{id}/', [UserController::class, 'show'])->name('user.show');
 
     Route::get('/posts', [PostController::class, 'index'])->name('post.index');
     Route::get('/post', [PostController::class, 'create'])->name('post.create');

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 py-12">
-        <form action="{{ route('user.store') }}" method="POST">
+        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="bg-white-100 overflow-hidden shadow-lg sm:rounded-lg">
                 <div class="px-6 pt-6">
@@ -59,9 +59,8 @@
 
                 <div class="px-6 pt-6">
                     <label for="profile" class="block mb-3 text-sm font-medium text-gray-900">Image</label>
-                    <p>{{ $request->profile }}</p>
-                    <img src="{{ asset('images/tmp/' . $imagePath) }}" width="300px" height="200px" />
-                    <input type="hidden" id="hidden-profile" name="profile" value="{{ $requ }}"
+                    <img src="{{ asset('images/user_image/' . $imagePath) }}" width="300px" height="200px" />
+                    <input type="hidden" id="hidden-profile" name="profile" value="{{ $imagePath }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 </div>
 

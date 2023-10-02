@@ -13,18 +13,6 @@
                 class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
                 Create
             </a>
-            {{-- <form action="{{ route('post.import') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="mb-3">
-                    <input type="file" class="pointer" name="file" accept=".xlsx" id="file"
-                        style="display: none">
-                    <button type="button" onclick="triggerFileInput()">Choose File</button>
-                    <button type="submit" id="submit-btn"
-                        class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
-                        Upload
-                    </button>
-                </div>
-            </form> --}}
             <a href="{{ route('post.import.view') }}"
                 class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
                 Import

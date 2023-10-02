@@ -78,17 +78,6 @@
                     <div class="sm:col-span-2">
                         <label for="dob" class="block mb-2 text-sm font-medium text-gray-900">Date of Birth</label>
                         <div class="relative max-w-sm">
-                            {{-- <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                </svg>
-                            </div> --}}
-                            {{-- <input datepicker datepicker-format="dd/mm/yyyy" datepicker-autohide type="date"
-                                name="dob" id="dob" data-date={{ $user->dob }} value={{ $user->dob }}
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5"
-                                placeholder="Select date"> --}}
                             <input type="date" name="dob" id="dob" value="{{ $user->dob }}"
                                 class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
@@ -105,11 +94,14 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="Profile" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
-                        <input type="file" name="profile" id="profile" value="{{ $user->profile }}"
+                        <input type="file" name="profile" id="profile"
                             class="block w-full text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
                             aria-describedby="user_avatar_help">
-                        <img id="selectedImage" src="{{ asset('images/user_image/' . $user->profile) }}" alt="Selected Image"
-                            width="300px" height="200px">
+                        {{-- <input type="hidden" name="profile" id="profile" value="{{ $user->profile }}"
+                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"> --}}
+                        <p>{{ $user->profile }}</p>
+                        <img id="selectedImage" src="{{ asset('images/user_image/' . $user->profile) }}"
+                            alt="Selected Image" width="300px" height="200px">
                         @error('profile')
                             <div class="text-red-600 mt-2 text-sm">
                                 {{ $message }}
@@ -135,32 +127,6 @@
 
 @section('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const datepicker = new Datepicker(document.getElementById('dob'));
-            datepicker.getDate($user - > dob);
-
-            datepicker.on('change', function() {
-                const selectedDate = datepicker.getDate();
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('user.store') }}',
-                    data: {
-                        selectedDate: selectedDate
-                    },
-                    success: function(response) {
-                        console.log('Date selected: ', selectedDate);
-                        console.log('Server response: ', response);
-                    },
-                    error: function(error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        conso
         profile.onchange = evt => {
             const [file] = profile.files
             if (file) {

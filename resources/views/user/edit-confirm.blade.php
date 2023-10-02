@@ -1,3 +1,10 @@
+<?php
+    if(session()->has('image1')) {
+        dd('image');
+    } else {
+        dd('no');
+    }
+?>
 @extends('layouts.app')
 @section('datepicker_css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
@@ -47,7 +54,9 @@
                     </div> --}}
                     <div class="sm:col-span-2">
                         <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Type</label>
-                        <p id="type">{{ $request->type }}</p>
+                        <p id="type">{{ $request->type == 0 ? 'Admin' : 'User' }}</p>
+                        <input type="hidden" name="type" id="type" value="{{ $request->type }}"
+                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                     <div class="sm:col-span-2">
                         <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone</label>
@@ -58,6 +67,8 @@
                     <div class="sm:col-span-2">
                         <label for="dob" class="block mb-2 text-sm font-medium text-gray-900">Date of Birth</label>
                         <p id="dob">{{ $request->dob }}</p>
+                        <input type="hidden" name="dob" id="dob" value="{{ $request->dob }}"
+                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                     <div class="sm:col-span-2">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
@@ -67,14 +78,24 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="Profile" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
-                        <img id="selectedImage" src="#" alt="Selected Image" width="300px" height="200px">
+                        @if (session()->has('image'))
+                            <img id="selectedImage" src="{{ asset('images/user_image/' . $imagePath) }}"
+                                alt="Selected Image" width="300px" height="200px">
+                            <input type="hidden" id="hidden-profile" name="profile" value="{{ $imagePath }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                        @else
+                            <img id="selectedImage" src="{{ asset('images/user_image/' . $request->profile) }}"
+                                alt="Selected Image" width="300px" height="200px">
+                            <input type="hidden" id="hidden-profile" name="profile" value="{{ $request->profile }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                        @endif
                     </div>
                 </div>
                 <div class="flex justify-start py-4">
-                    <button
+                    <a href="javascript:history.back()"
                         class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 mr-4">
                         Cancel
-                    </button>
+                    </a>
 
                     <button type="submit"
                         class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200">
@@ -87,37 +108,12 @@
 @endsection
 
 @section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const datepicker = new Datepicker(document.getElementById('dob'));
-            datepicker.getDate($user - > dob);
-
-            datepicker.on('change', function() {
-                const selectedDate = datepicker.getDate();
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('user.store') }}',
-                    data: {
-                        selectedDate: selectedDate
-                    },
-                    success: function(response) {
-                        console.log('Date selected: ', selectedDate);
-                        console.log('Server response: ', response);
-                    },
-                    error: function(error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
+    {{-- <script>
         profile.onchange = evt => {
             const [file] = profile.files
             if (file) {
                 selectedImage.src = URL.createObjectURL(file)
             }
         }
-    </script>
+    </script> --}}
 @endsection
