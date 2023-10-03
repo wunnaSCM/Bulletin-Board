@@ -17,11 +17,18 @@ class UserDao implements UserDaoInterface
   {
     // $users = User::latest()->paginate(20);
     // return $users;
+
     $users = User::query()
-      ->when($request->name || $request->email || $request->created_at, function (Builder $builder) use ($request) {
+      ->when(($request->name || $request->email)|| ($request->start && $request->end), function (Builder $builder) use ($request) {
         $builder->where('name', 'like', "%{$request->name}%")
-                ->where('email', 'like', "%{$request->email}%")
-                ->where('created_at', 'like', "%{$request->created_at}%");
+          ->where('email', 'like', "%{$request->email}%")
+          ->whereBetween(
+            DB::raw('DATE(created_at)'),
+            [
+              $request->start,
+              $request->end
+            ]
+          );
       })
       ->paginate(5);
 

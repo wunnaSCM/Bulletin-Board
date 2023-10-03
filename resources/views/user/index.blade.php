@@ -9,14 +9,11 @@
 
                 <input type="search" class="form-control" placeholder="Email" name="email" value="{{ request('email') }}">
 
-                <input type="search" class="form-control" placeholder="Created From" name="created_at"
-                    value="{{ request('created_at') }}">
+                <input type="date" class="form-control" placeholder="Created From" name="start"
+                    value="{{ request('start') }}">
 
-                {{-- <input type="search" class="form-control" placeholder="Created To" name="to"
-                    value="{{ request('created_to') }}"> --}}
-
-                <input type="search" class="form-control" placeholder="Find user here" name="search"
-                    value="{{ request('search') }}">
+                <input type="date" class="form-control" placeholder="Find user here" name="end"
+                    value="{{ request('end') }}">
 
                 <button type="submit"
                     class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
