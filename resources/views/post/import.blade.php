@@ -11,9 +11,9 @@
                 <div class="px-6 pt-6">
                     <input type="file" class="pointer" name="file" accept=".xlsx" id="file">
                     <div class="text-red-600 mt-2 text-sm">
-                        {{-- @foreach ($errors->all() as $error)
+                        @foreach ($errors->all() as $error)
                             {{ $error }} <br>
-                        @endforeach --}}
+                        @endforeach
                     </div>
                 </div>
                 <div class="flex justify-start px-6 pb-6">
@@ -22,7 +22,7 @@
                         Upload
                     </button>
 
-                    <button
+                    <button type="button" id="resetbtn"
                         class="btn inline-flex items-center px-5 py-2.5 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200">
                         Clear
                     </button>
@@ -30,4 +30,18 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#resetbtn').on('click', function(e) {
+                let $el = $('#file');
+                $el.wrap('<form>').closest(
+                    'form').get(0).reset();
+                $el.unwrap();
+            });
+        });
+    </script>
 @endsection

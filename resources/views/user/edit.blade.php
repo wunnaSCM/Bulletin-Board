@@ -1,8 +1,4 @@
 @extends('layouts.app')
-@section('datepicker_css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
-@endsection
 @section('content')
     <section class="bg-background">
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
@@ -30,34 +26,12 @@
                             </div>
                         @enderror
                     </div>
-                    {{-- <div class="sm:col-span-2">
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Pssword</label>
-                        <input type="password" name="password" id="password" value="{{ old('password') }}"
-                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        @error('password')
-                            <div class="text-red-600 mt-2 text-sm">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="sm:col-span-2">
-                        <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900">Password
-                            Confirmation</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation"
-                            value="{{ old('password_confirmation') }}"
-                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        @error('password_confirmation')
-                            <div class="text-red-600 mt-2 text-sm">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div> --}}
                     <div class="sm:col-span-2">
                         <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Type</label>
                         <select id="type" name="type"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                            <option value="0" {{ $user->type == 0 ? 'selected' : '' }}>Admin</option>
-                            <option value="1" {{ $user->type == 1 ? 'selected' : '' }}>User</option>
+                            <option value="1" {{ $user->type == 1 ? 'selected' : '' }}>Admin</option>
+                            <option value="0" {{ $user->type == 0 ? 'selected' : '' }}>User</option>
                         </select>
                         @error('type')
                             <div class="text-red-600 mt-2 text-sm">
@@ -97,16 +71,18 @@
                         <input type="file" name="profile" id="profile"
                             class="block w-full text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
                             aria-describedby="user_avatar_help">
-                        {{-- <input type="hidden" name="profile" id="profile" value="{{ $user->profile }}"
-                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"> --}}
-                        <p>{{ $user->profile }}</p>
                         <img id="selectedImage" src="{{ asset('images/user_image/' . $user->profile) }}"
-                            alt="Selected Image" width="300px" height="200px">
+                            alt="Selected Image">
                         @error('profile')
                             <div class="text-red-600 mt-2 text-sm">
                                 {{ $message }}
                             </div>
                         @enderror
+                    </div>
+                    <div class="sm:col-span-4">
+                        <a href="{{ route('user.change-password', $user->id) }}"
+                            class="block mb-2 text-sm font-bold text-gray-900">Change
+                            Password</a>
                     </div>
                 </div>
                 <div class="flex justify-start py-4">
@@ -127,10 +103,19 @@
 
 @section('scripts')
     <script>
+        const image = document.getElementById('selectedImage');
+        // if (image.src =  == 'http://localhost:8000/images/user_image') {
+        //     image.style.visibility = 'hidden';
+        //     image.width = 0;
+        //     image.height = 0;
+        // }
         profile.onchange = evt => {
             const [file] = profile.files
             if (file) {
-                selectedImage.src = URL.createObjectURL(file)
+                selectedImage.src = URL.createObjectURL(file);
+                image.style.visibility = 'visible';
+                image.width = "300";
+                image.height = "200";
             }
         }
     </script>

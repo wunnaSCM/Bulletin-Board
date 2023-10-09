@@ -39,9 +39,9 @@ class PostService implements PostServiceInterface
     return $post;
   }
 
-  public function deletePost($id)
+  public function deletePost($id, $deletedUserId)
   {
-    $post = $this->postDao->deletePost($id);
+    $post = $this->postDao->deletePost($id, $deletedUserId);
     return $post;
   }
 }

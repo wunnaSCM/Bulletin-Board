@@ -1,8 +1,4 @@
 @extends('layouts.app')
-@section('datepicker_css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
-@endsection
 @section('content')
     <section class="bg-background">
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">

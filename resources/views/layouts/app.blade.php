@@ -14,7 +14,6 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @yield('datepicker_css')
 </head>
 
 <body class="font-sans antialiased">
@@ -27,8 +26,8 @@
         </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js"></script>
     @yield('scripts')
+    @include('sweetalert::alert')
 </body>
 
 </html>

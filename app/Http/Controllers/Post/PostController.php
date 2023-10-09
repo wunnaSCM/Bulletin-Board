@@ -10,8 +10,10 @@ use App\Http\Requests\Post\StoreRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Imports\PostsImport;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelExcel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
@@ -24,6 +26,9 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $posts = $this->postInterface->getAllPost($request);
+        $title = 'Delete Post!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         return view('post.index')->with(compact('posts'));
     }
 
@@ -39,6 +44,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $this->postInterface->savePost($request);
+        toast('Post is successfully created', 'success');
         return redirect()->route('post.index');
     }
 
@@ -56,13 +62,21 @@ class PostController extends Controller
     public function update(Request $editRequest, $id)
     {
         $this->postInterface->updatePost($editRequest, $id);
+        toast('Post is successfully updated', 'success');
         return redirect()->route('post.index')->withInput();
     }
 
     public function delete($id)
     {
-        $this->postInterface->deletePost($id);
+        $deletedUserId = Auth::user()->id;
+        $this->postInterface->deletePost($id, $deletedUserId);
         return redirect()->route('post.index');
+    }
+
+    public function show($id)
+    {
+        $post = $this->postInterface->getPostById($id);
+        return view('post.detail')->with(compact('post'));
     }
 
     public function export()
@@ -72,6 +86,9 @@ class PostController extends Controller
 
     public function import(Request $request)
     {
+        $validated = $request->validate([
+            'file' => 'required',
+        ]);
         Excel::import(new PostsImport, $request->file);
         return back()->withStatus('Import in queue, we will send notification after import finished.');
     }

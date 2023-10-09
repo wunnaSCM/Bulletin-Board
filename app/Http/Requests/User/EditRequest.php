@@ -25,12 +25,11 @@ class EditRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'type' => ['required', 'numeric', 'max:1'],
             'phone' => ['required', 'max:20'],
             'dob' => ['required'],
             'address' => ['required', 'string', 'max:255'],
-            // 'profile' => ['required', 'string', 'max:255']
+        // 'profile' => ['required']
         ];
     }
 }

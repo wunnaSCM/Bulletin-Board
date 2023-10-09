@@ -17,9 +17,6 @@ class AuthDao implements AuthDaoInterface
     $user->name = $request->name;
     $user->email  = $request->email;
     $user->password  = Hash::make($request->password);
-    // $imageName = $request->profile ? uniqid() . "_" . $request->profile->getClientOriginalName() : null;
-    // $request->profile && $request->profile->move(public_path("images/user_image/"), $imageName);
-    // $user->profile = $request->profile ? $imageName : null;
     $user->profile = $request->profile ? $request->profile : null;
     $user->type  = $request->type ? $request->type : 1;
     $user->phone  = $request->phone;

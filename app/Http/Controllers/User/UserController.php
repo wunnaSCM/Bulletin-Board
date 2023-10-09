@@ -8,8 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\EditRequest;
 use App\Http\Requests\User\StoreRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -24,14 +23,18 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = $this->userInterface->getAllUser($request);
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         return view('user.index')->with(compact('users'));
     }
 
     public function show($id)
     {
-        $user = $this->userInterface->getUserById($id);
-            // dd('user', $user->profile);
-        return view('user.detail')->with(compact('user'));
+        if (Auth::user()->id == $id || Auth::user()->type === '1') {
+            $user = $this->userInterface->getUserById($id);
+            return view('user.detail')->with(compact('user'));
+        }
     }
     public function create()
     {
@@ -40,44 +43,70 @@ class UserController extends Controller
 
     public function createConfirm(StoreRequest $request)
     {
-        $imageName = $request->profile ? uniqid() . "_" . $request->profile->getClientOriginalName() : null;
-        $imageSource = $request->profile->move(public_path("images/user_image/"), $imageName);
-        $removeString = '/Users/wunna/Documents/Laravel/bulletin-board/public/images/user_image/';
-        $imagePath = Str::replace($removeString,'',$imageSource);
-        session(['image' => $imagePath]);
-        return view('user.create-confirm')->with(compact(['request', 'imagePath']));
+        $profileName = $this->storeProfileImage($request);
+        return view('user.create-confirm')->with(compact(['request', 'profileName']));
     }
 
     public function store(Request $request)
     {
         $this->authInterface->saveUser($request);
-        return redirect()->route('dashboard')->withInput();;
+        toast('User is successfully created', 'success');
+        return redirect()->route('user.index')->withInput();;
     }
 
     public function edit($id)
     {
-        $user = $this->userInterface->getUserById($id);
-        return view('user.edit')->with(compact('user'));
+        if (Auth::user()->id == $id || Auth::user()->type === '1') {
+            $user = $this->userInterface->getUserById($id);
+            return view('user.edit')->with(compact('user'));
+        }
     }
 
     public function editConfirm(EditRequest $request, $id)
     {
-        // dd($request);
-        if ($request->profile) {
-            $imageName = $request->profile ? uniqid() . "_" . $request->profile->getClientOriginalName() : null;
-            $imageSource = $request->profile->move(public_path("images/user_image/"), $imageName);
-            $removeString = '/Users/wunna/Documents/Laravel/bulletin-board/public/images/user_image/';
-            $imagePath = Str::replace($removeString,'',$imageSource);
-            session(['image1' => $imagePath]);
-            return view('user.edit-confirm')->with(compact(['request', 'id', 'imagePath']));
-        } else {
-            return view('user.edit-confirm')->with(compact(['request', 'id']));
+        if (Auth::user()->id == $id || Auth::user()->type === '1') {
+
+            $editUser = $this->userInterface->getUserById($id);
+            $profileName = "";
+            if ($request->hasFile('profile')) {
+                $profileName = $this->storeProfileImage($request);
+            } else {
+                $profileName = $editUser->profile;
+            }
+            return view('user.edit-confirm')->with(compact(['request', 'id', 'profileName']));
         }
     }
 
     public function update(Request $request, $id)
     {
-        $this->userInterface->updateUser($request, $id);
-        return redirect()->route('user.index')->withInput();
+        if (Auth::user()->id == $id || Auth::user()->type === '1') {
+            $this->userInterface->updateUser($request, $id);
+            toast('User is successfully updated', 'success');
+            return redirect()->route('user.index')->withInput();
+        }
+    }
+
+    public function delete($userId)
+    {
+        $deletedUserId = Auth::user()->id;
+        $this->userInterface->deletedUserById($userId, $deletedUserId);
+        return redirect()->route('user.index');
+    }
+
+    public function getPostByUserId($userid)
+    {
+        $user = $this->userInterface->getPostByUserId($userid);
+        $posts = $user->posts;
+        $title = 'Delete Post!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+        return view('user.posts')->with(compact('posts'));
+    }
+
+    function storeProfileImage(Request $request)
+    {
+        $imageName = time() . '.' . $request->profile->extension();
+        $request->profile->move(storage_path('app/public/user_image/'), $imageName);
+        return $imageName;
     }
 }

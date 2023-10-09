@@ -42,7 +42,7 @@
 <script>
     var title = document.getElementById('title').innerText;
     document.getElementById('hidden-title').value = title;
-    var description = document.getElementById('title').innerText;
+    var description = document.getElementById('description').innerText;
     document.getElementById('hidden-description').value = description;
 </script>
 @endsection

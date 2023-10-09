@@ -36,8 +36,7 @@
                 <div class="px-6 pt-6">
 
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="status" name="status"
-                    {{-- {{ dd($request->status) }} --}}
+                        <input type="checkbox" id="status" name="status" disabled
                         @if ($request->status)
                             checked
                         @endif

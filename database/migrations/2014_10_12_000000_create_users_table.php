@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
-            $table->string('profile', 255)->nullable();
-            $table->char('type', 1)->default(1);
+            $table->text('password');
+            $table->string('profile')->nullable();
+            $table->char('type', 1)->default(1); // 0 for Admin, 1 for User
             $table->char('phone', 20)->nullable();
-            $table->string('address', 255)->nullable();
+            $table->char('address', 255)->nullable();
             $table->date('dob')->nullable();
             $table->foreignId('created_user_id')->references('id')->on('users');
             $table->foreignId('updated_user_id')->references('id')->on('users');

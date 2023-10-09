@@ -2,36 +2,41 @@
 
 namespace App\Dao\User;
 
+use App\Models\User;
 use App\Contracts\Dao\User\UserDaoInterface;
 use App\Http\Requests\User\StoreRequest;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserDao implements UserDaoInterface
 {
   public function getAllUser(Request $request)
   {
-    // $users = User::latest()->paginate(20);
-    // return $users;
+    $userQuery = User::query();
+    if ($request->name || $request->email) {
+      $userQuery->where('name', 'like', "%{$request->name}%")
+        ->where('email', 'like', "%{$request->email}%");
+    }
 
-    $users = User::query()
-      ->when(($request->name || $request->email)|| ($request->start && $request->end), function (Builder $builder) use ($request) {
-        $builder->where('name', 'like', "%{$request->name}%")
-          ->where('email', 'like', "%{$request->email}%")
-          ->whereBetween(
+    if ($request->start && $request->end) {
+      $userQuery->when(
+        $request->start && $request->end,
+        function (Builder $builder) use ($request) {
+          $builder->whereBetween(
             DB::raw('DATE(created_at)'),
             [
               $request->start,
               $request->end
             ]
           );
-      })
-      ->paginate(5);
+        }
+      );
+    }
 
+    $users = $userQuery->paginate(5);
     return $users;
   }
 
@@ -51,15 +56,25 @@ class UserDao implements UserDaoInterface
     $user->dob = $request->dob;
     $user->created_user_id  = Auth::user()->id ?? 1;
     $user->updated_user_id = Auth::user()->id ?? 1;
-
-    // if ($request->profile) {
-    //   $image = request('profile');
-    //   $imageName = uniqid() . "_" . $image->getClientOriginalName();
-    //   $image->move(public_path("images/user_image/"), $imageName);
-    //   $user->profile = $imageName;
-    // }
     $user->profile = $request->profile;
     $user->update();
+    return $user;
+  }
+
+  public function deletedUserById($id, $deletedUserId)
+  {
+    $user = User::find($id);
+
+    if ($user) {
+      $user->deleted_user_id = $deletedUserId;
+      $user->save();
+      return $user->delete();
+    }
+  }
+
+  public function getPostByUserId($userId)
+  {
+    $user = User::findOrFail($userId);
     return $user;
   }
 }

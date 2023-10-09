@@ -59,8 +59,8 @@
 
                 <div class="px-6 pt-6">
                     <label for="profile" class="block mb-3 text-sm font-medium text-gray-900">Image</label>
-                    <img src="{{ asset('images/user_image/' . $imagePath) }}" width="300px" height="200px" />
-                    <input type="hidden" id="hidden-profile" name="profile" value="{{ $imagePath }}"
+                    <img src="{{ Storage::url('user_image/' . $profileName) }}" width="300px" height="200px" />
+                    <input type="hidden" id="hidden-profile" name="profile" value="{{ $profileName }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 </div>
 
