@@ -9,6 +9,7 @@ use App\Http\Requests\User\EditRequest;
 use App\Http\Requests\User\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -70,6 +71,7 @@ class UserController extends Controller
             $profileName = "";
             if ($request->hasFile('profile')) {
                 $profileName = $this->storeProfileImage($request);
+                $this->deleteFromStorage($editUser->profile);
             } else {
                 $profileName = $editUser->profile;
             }
@@ -108,5 +110,12 @@ class UserController extends Controller
         $imageName = time() . '.' . $request->profile->extension();
         $request->profile->move(storage_path('app/public/user_image/'), $imageName);
         return $imageName;
+    }
+
+    function deleteFromStorage($imageName)
+    {
+        if (Storage::exists('/public/user_image/' . $imageName)) {
+            Storage::delete('/public/user_image/' . $imageName);
+        }
     }
 }

@@ -44,7 +44,7 @@ class PostDao implements PostDaoInterface
     $post = Post::find($id);
     $post->title = $request->title;
     $post->description = $request->description;
-    $post->status = $request->status ? 0 : 1;
+    $post->status = $request->status === null ? 1 : 0;
     $post->created_user_id = auth()->user()->id;
     $post->updated_user_id = auth()->user()->id;
     $post->update();

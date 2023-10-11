@@ -31,7 +31,7 @@
             <div class="grid grid-cols-3 gap-8">
                 @foreach ($posts as $post)
                     <div class="max-w-sm p-6 bg-white-300 border border-gray-200 rounded-lg shadow">
-                        <a class="mb-8">
+                        <a href="{{ route('post.show', $post->id) }}" class="mb-8">
                             <div class="flex justify-between">
                                 <div class="text-gray-900 font-bold text-xl mb-2">{{ $post->title }}</div>
                             </div>
@@ -51,11 +51,11 @@
                         </div>
                         <div class="flex items-center mt-5">
                             <a href="{{ route('post.edit', $post->id) }}"
-                                class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                                class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-white-300 focus:outline-none bg-accent rounded-lg border border-gray-200 hover:bg-secondary hover:text-gray-950 focus:z-10 focus:ring-4 focus:ring-gray-200">
                                 Edit
                             </a>
                             <a href="{{ route('post.delete', $post->id) }}" type="button"
-                                class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200"
+                                class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-white-300 focus:outline-none bg-accent rounded-lg border border-gray-200 hover:bg-secondary hover:text-gray-950 focus:z-10 focus:ring-4 focus:ring-gray-200"
                                 data-confirm-delete="true">Delete</a>
                         </div>
                     </div>

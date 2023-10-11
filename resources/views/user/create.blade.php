@@ -73,10 +73,8 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="dob" class="block mb-2 text-sm font-medium text-gray-900">Date of Birth</label>
-                        <div class="relative max-w-sm">
-                            <input type="date" name="dob" id="dob" value="{{ old('dob') }}"
-                                class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        </div>
+                        <input type="date" name="dob" id="dob" value="{{ old('dob') }}"
+                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                     <div class="sm:col-span-2">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
@@ -91,7 +89,7 @@
                     <div class="sm:col-span-2">
                         <label for="Profile" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
                         <input type="file" name="profile" id="profile"
-                            class="block w-full text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
+                            class="block w-full mb-3 text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
                             aria-describedby="user_avatar_help">
                         <img id="selectedImage" src="" alt="Selected Image">
                         @error('profile')

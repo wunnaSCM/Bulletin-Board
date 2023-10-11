@@ -9,7 +9,7 @@
             <div class="flex flex-row">
                 <div class="px-6 pt-6">
                     <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-80 md:rounded-none md:rounded-l-lg"
-                        src="{{ asset('images/user_image/' . $user->profile) }}" alt="">
+                        src="{{ Storage::url('user_image/' . $user->profile) }}" alt="">
                 </div>
                 <div>
                     <div class="px-6 pt-6">

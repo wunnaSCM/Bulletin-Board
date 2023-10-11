@@ -55,7 +55,7 @@
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
+                            <tr class="bg-white border-b hover:bg-gray-50">
                                 <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
                                     <img class="w-10 h-10 rounded-full"
                                         src="{{ Storage::url('user_image/' . $user->profile) }}" alt="Jese image">
@@ -106,7 +106,7 @@
 
             </div>
         @else
-            <div class="flex items-center justify-center overflow-y-hidden">
+            <div class="flex items-center h-screen justify-center overflow-y-hidden">
                 <div class="text-center">
                     <p>This is no data: <x-carbon-no-ticket /></p>
                 </div>
