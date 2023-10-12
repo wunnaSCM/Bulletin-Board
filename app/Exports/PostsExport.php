@@ -21,7 +21,7 @@ class PostsExport implements WithMapping, FromCollection, WithHeadings, WithColu
 
     use Exportable;
 
-    private $columns = ['id', 'title', 'description', 'status', 'created_user_id', 'updated_user_id', 'deleted_user_id', 'created_at', 'updated_at', 'deleted_at'];
+    private $columns = ['id', 'title', 'description', 'status', 'created_user_id', 'updated_user_id', 'created_at', 'updated_at'];
 
     public function collection()
     {
@@ -29,7 +29,6 @@ class PostsExport implements WithMapping, FromCollection, WithHeadings, WithColu
     }
     public function map($post): array
     {
-        $deletedAtValue = $post->deleted_at ? Date::dateTimeToExcel($post->deleted_at) : null;
         return [
             $post->id,
             $post->title,
@@ -37,10 +36,8 @@ class PostsExport implements WithMapping, FromCollection, WithHeadings, WithColu
             $post->status,
             $post->created_user_id,
             $post->updated_user_id,
-            $post->deleted_user_id,
             Date::dateTimeToExcel($post->created_at),
             Date::dateTimeToExcel($post->updated_at),
-            $deletedAtValue
         ];
     }
 
@@ -52,9 +49,8 @@ class PostsExport implements WithMapping, FromCollection, WithHeadings, WithColu
     public function columnFormats(): array
     {
         return [
+            'G' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'H' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'I' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'J' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         ];
     }
 }

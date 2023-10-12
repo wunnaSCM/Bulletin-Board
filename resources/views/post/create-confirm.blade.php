@@ -9,17 +9,30 @@
                     <h1 class="text-2xl font-semibold">Create Post Confirmation</h1>
                 </div>
                 <div class="px-6 pt-6">
-                    <label for="title" class="block mb-3 text-sm font-medium text-gray-900">Title</label>
-                    <p id="title">{{ $request->title }}</p>
-                    <input type="hidden" id="hidden-title" name="title" value="{{ $request->title }}"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                    <div class="flex flex-start">
+                        <div class="mr-10">
+                            <label for="title" class="mb-3 text-sm font-medium text-gray-900">Title:</label>
+                        </div>
+                        <div>
+                            <p id="title" class="inline">{{ $request->title }}</p>
+                            <input type="hidden" id="hidden-title" name="title" value="{{ $request->title }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="px-6 pt-6">
-                    <label for="description" class="block mb-3 text-sm font-medium text-gray-900">Description</label>
-                    <p id="description">{{ $request->description }}</p>
-                    <input type="hidden" id="hidden-description" name="description" value="{{ $request->description }}"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                    <div class="flex flex-start">
+                        <div class="mr-10">
+                            <label for="description" class="mb-3 text-sm font-medium text-gray-900">Description: </label>
+                        </div>
+                        <div>
+                            <p id="description" class="inline">{{ $request->description }}</p>
+                            <input type="hidden" id="hidden-description" name="description"
+                                value="{{ $request->description }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="flex justify-start px-6 pb-6">
@@ -39,13 +52,10 @@
 @endsection
 
 @section('scripts')
-<script>
-    var title = document.getElementById('title').innerText;
-    document.getElementById('hidden-title').value = title;
-    var description = document.getElementById('description').innerText;
-    document.getElementById('hidden-description').value = description;
-</script>
+    <script>
+        var title = document.getElementById('title').innerText;
+        document.getElementById('hidden-title').value = title;
+        var description = document.getElementById('description').innerText;
+        document.getElementById('hidden-description').value = description;
+    </script>
 @endsection
-
-
-

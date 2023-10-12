@@ -16,8 +16,7 @@ class PostDao implements PostDaoInterface
         $builder->where('title', 'like', "%{$request->search}%");
       })
       ->where('status', '=', 1)
-      ->paginate(5);
-
+      ->paginate($perPage = $request->perPage ? $request->perPage : 6, $columns = ['*'], $pageName = 'posts');
     return $posts;
   }
 
@@ -51,12 +50,10 @@ class PostDao implements PostDaoInterface
     return $post;
   }
 
-  public function deletePost($id, $deletedUserId)
+  public function deletePost($id)
   {
     $post = Post::find($id);
     if ($post) {
-      $post->deleted_user_id = $deletedUserId;
-      $post->save();
       return $post->delete();
     }
   }
