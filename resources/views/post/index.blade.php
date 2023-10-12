@@ -31,11 +31,7 @@
             <div class="grid grid-cols-3 gap-8">
                 @foreach ($posts as $post)
                     <div class="max-w-sm p-6 bg-white-300 border border-gray-200 rounded-lg shadow">
-<<<<<<< HEAD
-                        <a href="{{ route('post.show', $post->id) }}" class="mb-8">
-=======
                         <a href={{ route('post.show', $post->id) }} class="mb-8">
->>>>>>> 742c7909e23c8e3a979042aedabe5e5050bf5007
                             <div class="flex justify-between">
                                 <div class="text-gray-900 font-bold text-xl mb-2">{{ $post->title }}</div>
                             </div>
