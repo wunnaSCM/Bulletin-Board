@@ -5,15 +5,10 @@ namespace App\Http\Controllers\Post;
 use App\Contracts\Services\Post\PostServiceInterface;
 use App\Exports\PostsExport;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Post\EditRequest;
 use App\Http\Requests\Post\StoreRequest;
-use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Imports\PostsImport;
-use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Excel as ExcelExcel;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
@@ -68,8 +63,7 @@ class PostController extends Controller
 
     public function delete($id)
     {
-        $deletedUserId = Auth::user()->id;
-        $this->postInterface->deletePost($id, $deletedUserId);
+        $this->postInterface->deletePost($id);
         return redirect()->route('post.index');
     }
 

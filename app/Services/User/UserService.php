@@ -38,9 +38,9 @@ class UserService implements UserServiceInterface
     $user = $this->userDao->deletedUserById($id, $deletedUserId);
     return $user;
   }
-  public function getPostByUserId($userId)
+  public function getPostByUserId(Request $request, $userId)
   {
-    $posts = $this->userDao->getPostByUserId($userId);
+    $posts = $this->userDao->getPostByUserId($request, $userId);
     return $posts;
   }
 }

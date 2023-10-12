@@ -93,10 +93,9 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function getPostByUserId($userid)
+    public function getPostByUserId(Request $request, $userid)
     {
-        $user = $this->userInterface->getPostByUserId($userid);
-        $posts = $user->posts;
+        $posts = $this->userInterface->getPostByUserId($request, $userid);
         $title = 'Delete Post!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);

@@ -51,10 +51,13 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="dob" class="block mb-2 text-sm font-medium text-gray-900">Date of Birth</label>
-                        <div class="relative max-w-sm">
-                            <input type="date" name="dob" id="dob" value="{{ $user->dob }}"
-                                class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        </div>
+                        <input type="date" name="dob" id="dob" value="{{ $user->dob }}"
+                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        @error('dob')
+                            <div class="text-red-600 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="sm:col-span-2">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
@@ -71,7 +74,7 @@
                         <input type="file" name="profile" id="profile"
                             class="block w-full text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
                             aria-describedby="user_avatar_help">
-                        <img id="selectedImage" src="{{ asset('images/user_image/' . $user->profile) }}"
+                        <img id="selectedImage" src="{{ Storage::url('user_image/' . $user->profile) }}"
                             alt="Selected Image">
                         @error('profile')
                             <div class="text-red-600 mt-2 text-sm">

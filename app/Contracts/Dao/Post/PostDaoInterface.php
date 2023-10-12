@@ -17,5 +17,5 @@ interface PostDaoInterface
 
   public function updatePost(Request $request, $id);
 
-  public function deletePost($id, $deletedUserId);
+  public function deletePost($id);
 }

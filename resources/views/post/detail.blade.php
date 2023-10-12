@@ -8,8 +8,8 @@
                 <div class="flex flex-row mt-2">
                     <img class="w-12 h-12 rounded-full inline" src="{{ Storage::url('user_image/' . $post->user->profile) }}">
                     <div class="ml-2">
-                        <span class="text-gray-950">Posted by {{ $post->user->name }}</span>
-                        <span class="text-gray-950 block">{{ $post->created_at->diffForHumans() }}</span>
+                        <span class="text-accent">Posted by {{ $post->user->name }}</span>
+                        <span class="text-accent block">{{ $post->created_at->diffForHumans() }}</span>
                     </div>
                 </div>
             </div>
