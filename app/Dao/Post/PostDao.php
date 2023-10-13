@@ -58,9 +58,14 @@ class PostDao implements PostDaoInterface
     }
   }
 
-  public function getAllPostExport()
+  public function getAllPostExport(Request $request)
   {
-    $posts = Post::all();
+    $query = Post::query();
+    if ($request->has('search')) {
+      $query->where('title', 'like', "%{$request->search}%")
+        ->where('status', '=', 1);
+    }
+    $posts = $query->get();
     return $posts;
   }
 }

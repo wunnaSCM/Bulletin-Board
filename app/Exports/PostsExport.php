@@ -2,15 +2,12 @@
 
 namespace App\Exports;
 
-use App\Contracts\Services\Post\PostServiceInterface;
-use App\Models\Post;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class PostsExport implements WithMapping, FromCollection, WithHeadings, WithColumnFormatting
@@ -23,9 +20,16 @@ class PostsExport implements WithMapping, FromCollection, WithHeadings, WithColu
 
     private $columns = ['id', 'title', 'description', 'status', 'created_user_id', 'updated_user_id', 'created_at', 'updated_at'];
 
+    private $data;
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
     public function collection()
     {
-        return Post::where('status', '=', 1)->get();
+        return $this->data;
     }
     public function map($post): array
     {

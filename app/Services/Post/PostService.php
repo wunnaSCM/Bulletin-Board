@@ -44,4 +44,10 @@ class PostService implements PostServiceInterface
     $post = $this->postDao->deletePost($id);
     return $post;
   }
+
+  public function getAllPostExport(Request $request)
+  {
+    $posts = $this->postDao->getAllPostExport($request);
+    return $posts;
+  }
 }

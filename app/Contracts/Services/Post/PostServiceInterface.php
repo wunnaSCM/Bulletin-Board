@@ -15,4 +15,6 @@ interface PostServiceInterface
   public function getPostById($id);
   public function updatePost(Request $request, $id);
   public function deletePost($id);
+
+  public function getAllPostExport(Request $request);
 }

@@ -20,10 +20,15 @@
                     class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
                     Import
                 </a>
-                <a href="{{ route('post.export') }}"
-                    class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
-                    Download
-                </a>
+                <form action={{ route('post.export') }} method="GET">
+                    @csrf
+                    <input type="hidden" class="form-control rounded-lg border" placeholder="Find user here" name="search"
+                        value="{{ request('search') }}">
+                    <button type="sumbit"
+                        class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                        Download
+                    </button>
+                </form>
             </div>
         </div>
 
@@ -50,13 +55,16 @@
 
                         </div>
                         <div class="flex items-center mt-5">
-                            <a href="{{ route('post.edit', $post->id) }}"
-                                class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-white-300 focus:outline-none bg-green-700 rounded-lg border border-gray-200 hover:bg-gray-300 hover:text-gray-950 focus:z-10 focus:ring-4 focus:ring-gray-200">
-                                Edit
-                            </a>
-                            <a href="{{ route('post.delete', $post->id) }}" type="button"
-                                class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-white-300 focus:outline-none bg-accent rounded-lg border border-gray-200 hover:bg-primary hover:text-gray-950 focus:z-10 focus:ring-4 focus:ring-gray-200"
-                                data-confirm-delete="true">Delete</a>
+                            @if(($post->created_user_id == auth()->user()->id)
+                                || (auth()->user()->type == 1))
+                                <a href="{{ route('post.edit', $post->id) }}"
+                                    class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-white-300 focus:outline-none bg-green-700 rounded-lg border border-gray-200 hover:bg-gray-300 hover:text-gray-950 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                                    Edit
+                                </a>
+                                <a href="{{ route('post.delete', $post->id) }}" type="button"
+                                    class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-white-300 focus:outline-none bg-accent rounded-lg border border-gray-200 hover:bg-primary hover:text-gray-950 focus:z-10 focus:ring-4 focus:ring-gray-200"
+                                    data-confirm-delete="true">Delete</a>
+                            @endif
                         </div>
                     </div>
                 @endforeach
