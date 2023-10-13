@@ -5,14 +5,14 @@
         <div class="flex justify-between mb-3">
             <form>
                 {{-- Search Input --}}
-                <input type="search" class="form-control mr-3" placeholder="Name" id="name" name="name"
-                    value="{{ request('name') }}">
-                <input type="search" class="form-control mr-3" placeholder="Email" name="email"
+                <input type="search" class="form-control mr-3 rounded-lg border" placeholder="Name" id="name"
+                    name="name" value="{{ request('name') }}">
+                <input type="search" class="form-control mr-3 rounded-lg border" placeholder="Email" name="email"
                     value="{{ request('email') }}">
-                <input type="date" class="form-control mr-3" placeholder="Start Date" name="start"
-                    value="{{ request('start') }}">
-                <input type="date" class="form-control mr-3" placeholder="End Date" name="end"
-                    value="{{ request('end') }}">
+                <input type="text" class="form-control mr-3 rounded-lg border" placeholder="Start Date" name="start"
+                    value="{{ request('start') }}" onfocus="(this.type='date')" onblur="(this.type='text')">
+                <input type="text" class="form-control mr-3 rounded-lg border" placeholder="End Date" name="end"
+                    value="{{ request('end') }}" onfocus="(this.type='date')" onblur="(this.type='text')">
                 <button type="submit"
                     class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-lg border border-gray-200 hover:bg-primary hover:text-white-300 focus:z-10 focus:ring-4 focus:ring-gray-200">
                     Search
@@ -55,7 +55,7 @@
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
+                            <tr class="bg-white border-b hover:bg-gray-50">
                                 <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
                                     <img class="w-10 h-10 rounded-full"
                                         src="{{ Storage::url('user_image/' . $user->profile) }}" alt="Jese image">
@@ -106,13 +106,22 @@
 
             </div>
         @else
-            <div class="flex items-center justify-center overflow-y-hidden">
+            <div class="flex items-center h-screen justify-center overflow-y-hidden">
                 <div class="text-center">
                     <p>This is no data: <x-carbon-no-ticket /></p>
                 </div>
             </div>
         @endif
         @if ($users->count())
+            <div class="container mx-auto mt-10">
+                <form method="GET" action="{{ route('user.index') }}">
+                    <select name="perPage" class="px-2 py-1 border rounded" onchange="this.form.submit()">
+                        <option value="5" {{ request()->get('perPage') == 5 ? 'selected' : '' }}>5</option>
+                        <option value="10" {{ request()->get('perPage') == 10 ? 'selected' : '' }}>10</option>
+                        <option value="15" {{ request()->get('perPage') == 15 ? 'selected' : '' }}>15</option>
+                    </select>
+                </form>
+            </div>
             {{ $users->links() }}
         @endif
     </div>

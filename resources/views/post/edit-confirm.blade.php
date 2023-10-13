@@ -12,7 +12,7 @@
                 <div class="px-6 pt-6">
                     <label for="title" class="block mb-3 text-sm font-medium text-gray-900">Title</label>
                     <p id="title">{{ $request->title }}</p>
-                    <input type="hidden" id="id="hidden-title"" name="title" value="{{ $request->title }}"
+                    <input type="hidden" id="hidden-title" name="title" value="{{ $request->title }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                     @error('title')
                         <div class="text-red-600 mt-2 text-sm">
@@ -36,6 +36,7 @@
                 <div class="px-6 pt-6">
 
                     <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="hidden" id="status" name="status" value="{{ $request->status }}" />
                         <input type="checkbox" id="status" name="status" disabled
                         @if ($request->status)
                             checked
@@ -69,7 +70,7 @@
 <script>
     var title = document.getElementById('title').innerText;
     document.getElementById('hidden-title').value = title;
-    var description = document.getElementById('title').innerText;
+    var description = document.getElementById('description').innerText;
     document.getElementById('hidden-description').value = description;
 </script>
 @endsection

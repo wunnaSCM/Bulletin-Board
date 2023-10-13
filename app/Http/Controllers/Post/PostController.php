@@ -5,15 +5,10 @@ namespace App\Http\Controllers\Post;
 use App\Contracts\Services\Post\PostServiceInterface;
 use App\Exports\PostsExport;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Post\EditRequest;
 use App\Http\Requests\Post\StoreRequest;
-use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Imports\PostsImport;
-use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Excel as ExcelExcel;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
@@ -51,7 +46,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = $this->postInterface->getPostById($id);
-        return view('post.edit')->with(compact('post'));
+        if ((auth()->user()->id == $post->created_user_id) || (auth()->user()->type == 1)) {
+            return view('post.edit')->with(compact('post'));
+        }
     }
 
     public function editConfirm(Request $request, $id)
@@ -68,8 +65,7 @@ class PostController extends Controller
 
     public function delete($id)
     {
-        $deletedUserId = Auth::user()->id;
-        $this->postInterface->deletePost($id, $deletedUserId);
+        $this->postInterface->deletePost($id);
         return redirect()->route('post.index');
     }
 
@@ -79,9 +75,13 @@ class PostController extends Controller
         return view('post.detail')->with(compact('post'));
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new PostsExport, 'posts.xlsx');
+        $posts = $this->postInterface->getAllPostExport($request);
+        if ($posts->count() === 0) {
+            return back()->with('error', 'Post is Empty');
+        }
+        return Excel::download(new PostsExport($posts), 'posts.xlsx');
     }
 
     public function import(Request $request)

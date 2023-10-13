@@ -4,3 +4,7 @@ Services -> Auth -> AuthService
 
 Mail
 php artisan make:mail MyEmail
+
+
+status 0 => hide -> on
+      1 => show

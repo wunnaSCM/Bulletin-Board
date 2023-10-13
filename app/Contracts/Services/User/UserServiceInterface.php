@@ -14,5 +14,5 @@ interface UserServiceInterface
   public function getUserById($id);
   public function updateUser(Request $request, $id);
   public function deletedUserById($id, $deletedUserId);
-  public function getPostByUserId($userId);
+  public function getPostByUserId(Request $request, $userId);
 }

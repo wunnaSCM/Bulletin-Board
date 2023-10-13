@@ -51,10 +51,16 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="dob" class="block mb-2 text-sm font-medium text-gray-900">Date of Birth</label>
-                        <div class="relative max-w-sm">
-                            <input type="date" name="dob" id="dob" value="{{ $user->dob }}"
-                                class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        </div>
+                        <input type="date" name="dob" id="dob" value="{{ $user->dob }}"
+                            class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+<<<<<<< HEAD
+=======
+                        @error('dob')
+                            <div class="text-red-600 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
+>>>>>>> 742c7909e23c8e3a979042aedabe5e5050bf5007
                     </div>
                     <div class="sm:col-span-2">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
@@ -69,9 +75,9 @@
                     <div class="sm:col-span-2">
                         <label for="Profile" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
                         <input type="file" name="profile" id="profile"
-                            class="block w-full text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
+                            class="block w-full mb-3 text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
                             aria-describedby="user_avatar_help">
-                        <img id="selectedImage" src="{{ asset('images/user_image/' . $user->profile) }}"
+                        <img id="selectedImage" src="{{ Storage::url('user_image/' . $user->profile) }}"
                             alt="Selected Image">
                         @error('profile')
                             <div class="text-red-600 mt-2 text-sm">
@@ -86,15 +92,21 @@
                     </div>
                 </div>
                 <div class="flex justify-start py-4">
+                    <a href="{{ route('user.index') }}"
+                        class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 mr-4">
+                        Back
+                    </a>
+
                     <a href="javascript:history.back()"
                         class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 mr-4">
                         Clear
                     </a>
 
                     <button type="submit"
-                        class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200">
+                        class="btn inline-flex items-center px-5 py-2.5 mt-4 mr-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200">
                         Confirm
                     </button>
+
                 </div>
             </form>
         </div>

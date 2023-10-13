@@ -2,14 +2,13 @@
 
 namespace App\Dao\User;
 
+use App\Models\Post;
 use App\Models\User;
 use App\Contracts\Dao\User\UserDaoInterface;
-use App\Http\Requests\User\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UserDao implements UserDaoInterface
 {
@@ -36,7 +35,7 @@ class UserDao implements UserDaoInterface
       );
     }
 
-    $users = $userQuery->paginate(5);
+    $users = $userQuery->paginate($perPage = $request->perPage ? $request->perPage : 5, $columns = ['*'], $pageName = 'users');
     return $users;
   }
 
@@ -72,9 +71,15 @@ class UserDao implements UserDaoInterface
     }
   }
 
-  public function getPostByUserId($userId)
+  public function getPostByUserId(Request $request, $userId)
   {
-    $user = User::findOrFail($userId);
-    return $user;
+    $posts = Post::query()
+      ->when($request->search, function (Builder $builder) use ($request) {
+        $builder->where('title', 'like', "%{$request->search}%");
+      })
+      ->where('status', '=', 1)
+      ->where('created_user_id', '=', $userId)
+      ->paginate($perPage = $request->perPage ? $request->perPage : 6, $columns = ['*'], $pageName = 'posts');;
+    return $posts;
   }
 }

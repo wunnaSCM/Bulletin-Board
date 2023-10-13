@@ -16,8 +16,7 @@ class PostDao implements PostDaoInterface
         $builder->where('title', 'like', "%{$request->search}%");
       })
       ->where('status', '=', 1)
-      ->paginate(5);
-
+      ->paginate($perPage = $request->perPage ? $request->perPage : 6, $columns = ['*'], $pageName = 'posts');
     return $posts;
   }
 
@@ -44,26 +43,29 @@ class PostDao implements PostDaoInterface
     $post = Post::find($id);
     $post->title = $request->title;
     $post->description = $request->description;
-    $post->status = $request->status ? 0 : 1;
+    $post->status = $request->status === null ? 1 : 0;
     $post->created_user_id = auth()->user()->id;
     $post->updated_user_id = auth()->user()->id;
     $post->update();
     return $post;
   }
 
-  public function deletePost($id, $deletedUserId)
+  public function deletePost($id)
   {
     $post = Post::find($id);
     if ($post) {
-      $post->deleted_user_id = $deletedUserId;
-      $post->save();
       return $post->delete();
     }
   }
 
-  public function getAllPostExport()
+  public function getAllPostExport(Request $request)
   {
-    $posts = Post::all();
+    $query = Post::query();
+    if ($request->has('search')) {
+      $query->where('title', 'like', "%{$request->search}%")
+        ->where('status', '=', 1);
+    }
+    $posts = $query->get();
     return $posts;
   }
 }
