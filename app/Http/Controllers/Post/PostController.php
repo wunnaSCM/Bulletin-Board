@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
 use Illuminate\Http\Request;
 use App\Imports\PostsImport;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PostController extends Controller
