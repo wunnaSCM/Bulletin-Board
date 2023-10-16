@@ -53,14 +53,11 @@
                         <label for="dob" class="block mb-2 text-sm font-medium text-gray-900">Date of Birth</label>
                         <input type="date" name="dob" id="dob" value="{{ $user->dob }}"
                             class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-<<<<<<< HEAD
-=======
                         @error('dob')
                             <div class="text-red-600 mt-2 text-sm">
                                 {{ $message }}
                             </div>
                         @enderror
->>>>>>> 742c7909e23c8e3a979042aedabe5e5050bf5007
                     </div>
                     <div class="sm:col-span-2">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
