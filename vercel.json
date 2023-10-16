@@ -5,7 +5,7 @@
     },
     "routes": [
         {
-            "src": "/build/(.*)",
+            "src": "/build(.)",
             "dest": "/api/index.php"
         }
     ],
@@ -27,5 +27,6 @@
     },
 
     "public": true,
-    "buildCommand": "vite build", "outputDirectory": "public"
+    "buildCommand": "vite build",
+    "outputDirectory": "public"
 }
