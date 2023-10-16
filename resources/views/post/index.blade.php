@@ -55,8 +55,7 @@
 
                         </div>
                         <div class="flex items-center mt-5">
-                            @if(($post->created_user_id == auth()->user()->id)
-                                || (auth()->user()->type == 1))
+                            @if ($post->created_user_id == auth()->user()->id || auth()->user()->type == 1)
                                 <a href="{{ route('post.edit', $post->id) }}"
                                     class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-white-300 focus:outline-none bg-green-700 rounded-lg border border-gray-200 hover:bg-gray-300 hover:text-gray-950 focus:z-10 focus:ring-4 focus:ring-gray-200">
                                     Edit
