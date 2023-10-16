@@ -15,7 +15,7 @@
 
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resourrces/js/app.js']) --}}
-    @vite('resourrces/js/app.js')
+    @vite('resources/js/app.js')
 </head>
 
 <body class="font-sans antialiased">
