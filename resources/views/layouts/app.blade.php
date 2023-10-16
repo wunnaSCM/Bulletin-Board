@@ -15,7 +15,7 @@
 
     <!-- Scripts -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @vite('resourrces/js/app.js')
+    @vite('resources/js/app.js')
     {{-- @vite(['resources/css/app.css', 'resourrces/js/app.js']) --}}
 </head>
 
