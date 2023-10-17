@@ -65,6 +65,7 @@ class UserController extends Controller
 
     public function editConfirm(EditRequest $request, $id)
     {
+        dd($request->profile);
         if (Auth::user()->id == $id || Auth::user()->type === '1') {
 
             $editUser = $this->userInterface->getUserById($id);
