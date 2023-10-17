@@ -5,20 +5,20 @@
     },
     "rewrites": [
         {
-            "src": "/build/(.*)",
-            "dest": "/public/build/"
+            "source": "/build/(.*)",
+            "destination": "/public/build/"
         },
         {
-            "src": "/resources/(.*)",
-            "dest": "/public/resources/"
+            "source": "/resources/(.*)",
+            "destination": "/public/resources/"
         },
         {
-            "src": "/favicon/(.*)",
-            "dest": "/public/favicon/"
+            "source": "/favicon/(.*)",
+            "destination": "/public/favicon/"
         },
         {
-            "src": "/(.*)",
-            "dest": "/api/index.php"
+            "source": "/(.*)",
+            "destination": "/api/index.php"
         }
     ],
     "env": {
