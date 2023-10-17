@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-Route::middleware(['auth', 'verified', 'revalidate', 'https'])->group(function () {
+Route::middleware(['auth', 'verified', 'revalidate'])->group(function () {
 
     Route::get('/user/{id}/change-password', [ChangePasswordController::class, 'changePassword'])->name('user.change-password');
     Route::post('/user/{id}/change-password', [ChangePasswordController::class, 'updateChangePwd'])->name('user.update.change.password');
@@ -56,7 +56,7 @@ Route::middleware(['auth', 'verified', 'revalidate', 'https'])->group(function (
     Route::get('/user/{userId}/posts', [UserController::class, 'getPostByUserId'])->name('user.post');
 });
 
-Route::middleware(['auth', 'verified', 'admin', 'revalidate', 'https'])->group(function () {
+Route::middleware(['auth', 'verified', 'admin', 'revalidate'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('user.index');
     Route::get('/user', [UserController::class, 'create'])->name('user.create');
     Route::post('/user/confirm', [UserController::class, 'createConfirm'])->name('user.create.confirm');
