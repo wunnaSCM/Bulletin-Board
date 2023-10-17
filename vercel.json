@@ -3,7 +3,7 @@
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.6.0" }
     },
-    "routes": [
+    "rewrites": [
         {
             "src": "/build/(.*)",
             "dest": "/public/build/"
@@ -21,7 +21,6 @@
             "dest": "/api/index.php"
         }
     ],
-    "rewrites": [{ "source": "/(.*)", "destination": "/" }],
     "env": {
         "APP_NAME": "BulletinBoard",
         "APP_ENV": "production",
