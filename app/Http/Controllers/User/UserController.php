@@ -65,7 +65,6 @@ class UserController extends Controller
 
     public function editConfirm(EditRequest $request, $id)
     {
-        dd($request->profile);
         if (Auth::user()->id == $id || Auth::user()->type === '1') {
 
             $editUser = $this->userInterface->getUserById($id);
@@ -73,6 +72,7 @@ class UserController extends Controller
             if ($request->hasFile('profile')) {
                 $profileName = $this->storeProfileImage($request);
                 $this->deleteFromStorage($editUser->profile);
+                dd($profileName);
             } else {
                 $profileName = $editUser->profile;
             }
