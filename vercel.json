@@ -21,6 +21,7 @@
             "dest": "/api/index.php"
         }
     ],
+    "rewrites": [{ "source": "/(.*)", "destination": "/" }],
     "env": {
         "APP_NAME": "BulletinBoard",
         "APP_ENV": "production",
