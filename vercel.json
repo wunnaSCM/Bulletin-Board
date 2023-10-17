@@ -3,22 +3,22 @@
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.6.0" }
     },
-    "rewrites": [
+    "routes": [
         {
-            "source": "/build/(.*)",
-            "destination": "/public/build/"
+            "src": "/build/(.*)",
+            "dest": "/public/build/"
         },
         {
-            "source": "/resources/(.*)",
-            "destination": "/public/resources/"
+            "src": "/resources/(.*)",
+            "dest": "/public/resources/"
         },
         {
-            "source": "/favicon/(.*)",
-            "destination": "/public/favicon/"
+            "src": "/favicon/(.*)",
+            "dest": "/public/favicon/"
         },
         {
-            "source": "/(.*)",
-            "destination": "/api/index.php"
+            "src": "/(.*)",
+            "dest": "/api/index.php"
         }
     ],
     "env": {
