@@ -72,7 +72,6 @@ class UserController extends Controller
             if ($request->hasFile('profile')) {
                 $profileName = $this->storeProfileImage($request);
                 $this->deleteFromStorage($editUser->profile);
-                dd($profileName);
             } else {
                 $profileName = $editUser->profile;
             }
