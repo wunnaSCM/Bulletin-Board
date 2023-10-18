@@ -107,8 +107,8 @@ class UserController extends Controller
     function storeProfileImage(Request $request)
     {
         $imageName = time() . '.' . $request->profile->extension();
-        $request->profile->move(storage_path('app/public/user_image/'),$imageName);
-        // $request->profile->storeAs('public/user_image/', $imageName);
+        // $request->profile->move(storage_path('app/public/user_image/'),$imageName);
+        $request->profile->storeAs('public/user_image/', $imageName);
         return $imageName;
     }
 
