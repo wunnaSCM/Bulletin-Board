@@ -10,7 +10,6 @@ use App\Http\Requests\User\StoreRequest;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -63,17 +62,15 @@ class UserController extends Controller
             return view('user.edit')->with(compact('user'));
         }
     }
-
     public function editConfirm(EditRequest $request, $id)
     {
         // dd($request);
         if (Auth::user()->id == $id || Auth::user()->type === '1') {
-
             $editUser = $this->userInterface->getUserById($id);
             $profileName = "";
             if ($request->hasFile('profile')) {
                 $profileName = $this->storeProfileImage($request);
-                $this->deleteFromStorage($editUser->profile);
+                // $this->deleteFromStorage($editUser->profile);
             } else {
                 $profileName = $editUser->profile;
             }
@@ -122,8 +119,8 @@ class UserController extends Controller
 
     function deleteFromStorage($imageName)
     {
-        if (Storage::exists('/public/user_image/' . $imageName)) {
-            Storage::delete('/public/user_image/' . $imageName);
-        }
+        // if (Storage::exists('/public/user_image/' . $imageName)) {
+        //     Storage::delete('/public/user_image/' . $imageName);
+        // }
     }
 }
