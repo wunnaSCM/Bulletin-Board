@@ -74,7 +74,7 @@
                         <input type="file" name="profile" id="profile"
                             class="block w-full mb-3 text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
                             aria-describedby="user_avatar_help">
-                        <img id="selectedImage" src="{{ Storage::url('user_image/' . $user->profile) }}"
+                        <img id="selectedImage" src="{{ $user->profile }}"
                             alt="Selected Image">
                         @error('profile')
                             <div class="text-red-600 mt-2 text-sm">

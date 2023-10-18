@@ -7,6 +7,7 @@ use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\EditRequest;
 use App\Http\Requests\User\StoreRequest;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -65,6 +66,7 @@ class UserController extends Controller
 
     public function editConfirm(EditRequest $request, $id)
     {
+        // dd($request);
         if (Auth::user()->id == $id || Auth::user()->type === '1') {
 
             $editUser = $this->userInterface->getUserById($id);
@@ -106,10 +108,16 @@ class UserController extends Controller
 
     function storeProfileImage(Request $request)
     {
-        $imageName = time() . '.' . $request->profile->extension();
+        $imageName = time();
         // $request->profile->move(storage_path('app/public/user_image/'),$imageName);
-        $request->profile->storeAs('/public/user_image/', $imageName);
-        return $imageName;
+        // $request->profile->storeAs('public/user_image/', $imageName);
+
+        $uploadedImage = Cloudinary::upload($request->profile->getRealPath(), [
+            'folder' => 'bulletin-board',  // Optional: Specify a folder in Cloudinary
+            'public_id' => $imageName,
+        ]);
+        $image = $uploadedImage->getSecurePath();
+        return $image;
     }
 
     function deleteFromStorage($imageName)

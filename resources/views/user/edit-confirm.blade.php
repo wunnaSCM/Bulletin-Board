@@ -49,7 +49,7 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="Profile" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
-                        <img id="selectedImage" src="{{ Storage::url('user_image/' .$profileName) }}"
+                        <img id="selectedImage" src="{{ $profileName }}"
                             alt="Selected Image" width="300px" height="200px">
                         <input type="hidden" id="hidden-profile" name="profile" value={{ $profileName }}
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
