@@ -25,7 +25,7 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Type</label>
-                        <p id="type">{{ $request->type == 0 ? 'Admin' : 'User' }}</p>
+                        <p id="type">{{ $request->type == 1 ? 'Admin' : 'User' }}</p>
                         <input type="hidden" name="type" id="type" value="{{ $request->type }}"
                             class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>

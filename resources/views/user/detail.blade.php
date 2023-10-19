@@ -9,7 +9,8 @@
             <div class="flex flex-row">
                 <div class="px-6 pt-6">
                     <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-80 md:rounded-none md:rounded-l-lg"
-                        src="{{ $user->profile }}" alt="">
+                        src="{{ $user->profile ? $user->profile : 'https://res.cloudinary.com/db3aejokb/image/upload/v1684981779/k0thepmdaacdqo7amr9w.jpg' }}"
+                        alt="">
                 </div>
                 <div>
                     <div class="px-6 pt-6">
@@ -52,6 +53,11 @@
                 <a href="javascript:history.back()"
                     class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 mr-4">
                     Back
+                </a>
+
+                <a href="{{ route('user.edit', $user->id) }}"
+                    class="btn inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white-300 bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 mr-4">
+                    Edit
                 </a>
 
                 <a href="{{ route('user.change-password', $user->id) }}"
