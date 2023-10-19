@@ -64,13 +64,12 @@ class UserController extends Controller
     }
     public function editConfirm(EditRequest $request, $id)
     {
-        // dd($request);
         if (Auth::user()->id == $id || Auth::user()->type === '1') {
             $editUser = $this->userInterface->getUserById($id);
             $profileName = "";
             if ($request->hasFile('profile')) {
                 $profileName = $this->storeProfileImage($request);
-                // $this->deleteFromStorage($editUser->profile);
+                $this->deleteFromStorage($editUser->profile);
             } else {
                 $profileName = $editUser->profile;
             }
@@ -106,9 +105,6 @@ class UserController extends Controller
     function storeProfileImage(Request $request)
     {
         $imageName = time();
-        // $request->profile->move(storage_path('app/public/user_image/'),$imageName);
-        // $request->profile->storeAs('public/user_image/', $imageName);
-
         $uploadedImage = Cloudinary::upload($request->profile->getRealPath(), [
             'folder' => 'bulletin-board',  // Optional: Specify a folder in Cloudinary
             'public_id' => $imageName,
@@ -119,8 +115,16 @@ class UserController extends Controller
 
     function deleteFromStorage($imageName)
     {
-        // if (Storage::exists('/public/user_image/' . $imageName)) {
-        //     Storage::delete('/public/user_image/' . $imageName);
-        // }
+        $public_id = 'bulletin-board/' . $this->getPublicId($imageName);
+        Cloudinary::destroy($public_id);
+    }
+
+    function getPublicId($imageURL)
+    {
+        $parts = explode('/', $imageURL);
+        $filename = end($parts);
+        $filenameParts = explode('.', $filename);
+        $publicId = reset($filenameParts);
+        return $publicId;
     }
 }
