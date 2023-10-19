@@ -45,9 +45,9 @@
                             </div>
                         </a>
                         <div class="flex items-center mt-5">
-                            <img class="w-10 h-10 rounded-full mr-4"
-                                src="{{ $post->user->profile }}"
-                                alt="Avatar of Jonathan Reinink">
+                                <img class="w-10 h-10 rounded-full mr-4"
+                                    src="{{ $post->user->profile }}"
+                                    alt="Avatar of Jonathan Reinink">
                             <div class="text-sm">
                                 <p class="text-primary leading-none">{{ $post->user->name }}</p>
                                 <p class="text-gray-600">{{ $post->created_at->diffForHumans() }}</p>

@@ -63,10 +63,11 @@ class UserDao implements UserDaoInterface
   public function deletedUserById($id, $deletedUserId)
   {
     $user = User::find($id);
+    $posts = Post::query()->where('created_user_id', '=', $id);
 
     if ($user) {
       $user->deleted_user_id = $deletedUserId;
-      $user->save();
+      $posts->delete();
       return $user->delete();
     }
   }

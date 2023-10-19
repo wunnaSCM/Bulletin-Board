@@ -22,7 +22,6 @@ class PostFactory extends Factory
             'status' => fake()->numberBetween($min = 0, $max = 1),
             'created_user_id' => 1,
             'updated_user_id' => 1,
-            'deleted_user_id' => 1,
         ];
     }
 }
