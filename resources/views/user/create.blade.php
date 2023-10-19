@@ -64,6 +64,7 @@
                     <div class="sm:col-span-2">
                         <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone</label>
                         <input type="number" name="phone" id="phone" value="{{ old('phone') }}"
+                            onkeydown="return event.keyCode !== 69"
                             class="bg-white-300 border border-gray-300 text-gray-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         @error('phone')
                             <div class="text-red-600 mt-2 text-sm">
@@ -98,7 +99,7 @@
                         <input type="file" name="profile" id="profile"
                             class="block w-full mb-3 text-sm text-gray-950 border border-gray-300 rounded-lg cursor-pointer bg-white-300 focus:outline-none"
                             aria-describedby="user_avatar_help">
-                            <img id="selectedImage" src="" alt="Selected Image">
+                        <img id="selectedImage" src="" alt="Selected Image">
                         @error('profile')
                             <div class="text-red-600 mt-2 text-sm">
                                 {{ $message }}
