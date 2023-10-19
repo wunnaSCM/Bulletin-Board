@@ -73,7 +73,7 @@
                                     @endforeach
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $user->type == 0 ? 'Admin' : 'User' }}
+                                    {{ $user->type == 1 ? 'Admin' : 'User' }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $user->phone }}
