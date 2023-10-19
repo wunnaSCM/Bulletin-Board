@@ -44,11 +44,6 @@ Route::middleware(['auth', 'verified', 'revalidate'])->group(function () {
     Route::delete('/post/delete/{id}', [PostController::class, 'delete'])->name('post.delete');
     Route::get('/post/detail/{id}', [PostController::class, 'show'])->name('post.show');
 
-    // CSV
-    Route::get('/posts/export/', [PostController::class, 'export'])->name('post.export');
-    Route::get('/posts/import', [PostController::class, 'importView'])->name('post.import.view');
-    Route::post('/posts/import', [PostController::class, 'import'])->name('post.import');
-
     // User
     Route::get('/user/{id}/', [UserController::class, 'edit'])->name('user.edit');
     Route::post('/user/{id}/confirm', [UserController::class, 'editConfirm'])->name('user.edit.confirm');
@@ -63,6 +58,13 @@ Route::middleware(['auth', 'verified', 'admin', 'revalidate'])->group(function (
     Route::post('/user/confirm', [UserController::class, 'createConfirm'])->name('user.create.confirm');
     Route::post('/user', [UserController::class, 'store'])->name('user.store');
     Route::delete('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    // CSV
+    Route::get('/posts/export/', [PostController::class, 'export'])->name('post.export');
+    Route::get('/posts/import', [PostController::class, 'importView'])->name('post.import.view');
+    Route::post('/posts/import', [PostController::class, 'import'])->name('post.import');
 });
 
 Route::middleware('guest')->group(function () {

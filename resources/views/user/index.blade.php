@@ -57,8 +57,9 @@
                         @foreach ($users as $user)
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                                    <img class="w-10 h-10 rounded-full" src="{{ $user->profile }}" alt="Jese image">
-                                    {{-- src="{{ Storage::url('user_image/' . $user->profile) }}" alt="Jese image"> --}}
+                                    <img class="w-10 h-10 rounded-full"
+                                        src="{{ $user->profile ? $user->profile : 'https://res.cloudinary.com/db3aejokb/image/upload/v1684981779/k0thepmdaacdqo7amr9w.jpg' }}"
+                                        alt="Jese image">
                                     <div class="pl-3">
                                         <div class="text-base font-semibold">{{ $user->name }}</div>
                                         <div class="font-normal text-gray-500">{{ $user->email }}</div>
